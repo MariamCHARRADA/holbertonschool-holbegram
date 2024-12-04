@@ -1,33 +1,29 @@
 buildscript {
     repositories {
-        // Ensure this line is present
-        google()
-        mavenCentral()
+        google() // Google's Maven repository
+        mavenCentral() // Ensure this is included
     }
     dependencies {
-        // Add this line for the Google Services plugin
+        // Add the Google Services classpath dependency
         classpath 'com.google.gms:google-services:4.3.13'
     }
 }
 
 allprojects {
     repositories {
-        google()
+        google() // Google's Maven repository
         mavenCentral()
     }
 }
 
 rootProject.buildDir = "../build"
-
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
-
 subprojects {
     project.evaluationDependsOn(":app")
 }
 
-// This "clean" task is fine as it is
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

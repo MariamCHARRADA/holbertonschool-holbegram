@@ -29,13 +29,13 @@ class TextFieldInput extends StatelessWidget {
           contentPadding: const EdgeInsets.all(8),
           suffixIcon: suffixIcon,
           border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
+            borderSide: BorderSide(color: Colors.transparent),
           ),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide.none,
+            borderSide: BorderSide(color: Colors.transparent),
           ),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide.none,
+            borderSide: BorderSide(color: Colors.transparent),
           )),
       textInputAction: TextInputAction.next,
     );

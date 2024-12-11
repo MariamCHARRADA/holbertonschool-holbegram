@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
+import 'package:holbegram/screens/signup_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,7 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontSize: 50,
               ),
             ),
-           const Image(image: AssetImage('assets/images/logo.png'),
+            const Image(
+              image: AssetImage('assets/images/logo.png'),
               width: 80,
               height: 60,
             ),
@@ -77,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(
-                          const Color.fromARGB(218, 226, 37, 24),                        ),
+                          const Color.fromARGB(218, 226, 37, 24),
+                        ),
                       ),
                       onPressed: () {},
                       child: const Text(
@@ -90,11 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Text('Forgot your login details? '),
-                     Text(
-                          'Get help logging in',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                      Text('Forgot your login details? '),
+                      Text(
+                        'Get help logging in',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                   Flexible(
@@ -111,7 +115,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text("Don't have an account? "),
                         TextButton(
                           onPressed: () {
-                            // Navigate to sign-up screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUp(),
+                              ),
+                            );
                           },
                           child: const Text(
                             'Sign up',
@@ -127,14 +136,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 10),
                   const Row(
                     children: [
-                     Flexible(
+                      Flexible(
                         child: Divider(thickness: 2),
                       ),
-                  Text(
-                    'OR',
-                    style: TextStyle(fontSize: 20),
+                      Text(
+                        'OR',
+                        style: TextStyle(fontSize: 20),
                       ),
-                  Flexible(
+                      Flexible(
                         child: Divider(thickness: 2),
                       ),
                     ],

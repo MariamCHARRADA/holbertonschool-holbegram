@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'package:holbegram/screens/signup_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -83,7 +85,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        String email = emailController.text;
+                        String password = passwordController.text;
+                        String result = await AuthMethods().login(
+                          email: email,
+                          password: password,
+                        );
+                        if (result == "success") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Login Successful")),
+                          );
+                          Navigator.pushReplacementNamed(context, '/home');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(result)),
+                          );
+                        }
+                      },
                       child: const Text(
                         'Log in',
                         style: TextStyle(color: Colors.white),

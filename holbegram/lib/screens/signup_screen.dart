@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'package:holbegram/screens/login_screen.dart';
-import 'package:holbegram/screens/upload_image_screen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

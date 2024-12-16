@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPicture extends StatefulWidget {
@@ -24,8 +25,7 @@ class _AddPictureState extends State<AddPicture> {
   void selectImageFromGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
-      final Uint8List bytes =
-          await image.readAsBytes();
+      final Uint8List bytes = await image.readAsBytes();
       setState(() {
         _image = bytes;
       });
@@ -35,18 +35,16 @@ class _AddPictureState extends State<AddPicture> {
   void selectImageFromCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image != null) {
-      final Uint8List bytes =
-          await image.readAsBytes();
+      final Uint8List bytes = await image.readAsBytes();
       setState(() {
         _image = bytes;
       });
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -68,8 +66,9 @@ class _AddPictureState extends State<AddPicture> {
                 children: [
                   const SizedBox(height: 28),
                   Text(
-                    "Hello, ${widget.username}, Welcome to Holbegram.",
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    "Hello ${widget.username}, Welcome to Holbegram.",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const Text(
                     "Choose an image from the gallery or take a new one.",
@@ -78,7 +77,7 @@ class _AddPictureState extends State<AddPicture> {
                   const SizedBox(height: 10),
                   _image == null
                       ? Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
+                          'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
                           height: 250,
                           width: 250,
                         )
@@ -97,11 +96,17 @@ class _AddPictureState extends State<AddPicture> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.photo_outlined, color: Colors.red,),
+                        icon: const Icon(
+                          Icons.photo_outlined,
+                          color: Colors.red,
+                        ),
                         onPressed: selectImageFromGallery,
                       ),
                       IconButton(
-                        icon: const Icon(Icons.camera_alt_outlined, color: Colors.red,),
+                        icon: const Icon(
+                          Icons.camera_alt_outlined,
+                          color: Colors.red,
+                        ),
                         onPressed: selectImageFromCamera,
                       ),
                     ],
@@ -120,6 +125,18 @@ class _AddPictureState extends State<AddPicture> {
                         String username = widget.username;
                         String password = widget.password;
 
+                        String result = await AuthMethods().signUpUser(
+                            email: email,
+                            password: password,
+                            username: username,
+                            file: _image);
+
+                        if (result == "success") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Sign-up success')),
+                          );
+                        }
                       },
                       child: const Text(
                         'Next',

@@ -122,11 +122,6 @@ class _SignUpState extends State<SignUp> {
                         String passwordConfirm = passwordConfirmController.text;
 
                         if (password == passwordConfirm) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Sign-up successful!"),
-                            ),
-                          );
 
                           Navigator.push(
                             context,

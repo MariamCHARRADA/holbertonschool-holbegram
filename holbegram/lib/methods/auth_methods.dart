@@ -40,7 +40,8 @@ class AuthMethods {
     try {
       if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
         // Create user with email and password
-        UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -63,7 +64,10 @@ class AuthMethods {
           );
 
           // Save the user data in Firestore
-          await _firestore.collection("users").doc(user.uid).set(users.toJson());
+          await _firestore
+              .collection("users")
+              .doc(user.uid)
+              .set(users.toJson());
 
           result = "success";
         }
@@ -74,5 +78,24 @@ class AuthMethods {
       result = e.toString();
     }
     return result;
+  }
+
+  Future<Users> getUserDetails() async {
+    try {
+      User? currentUser = _auth.currentUser;
+
+      if (currentUser == null) {
+        throw Exception("No user is currently logged in.");
+      }
+
+      // fetches user data from Firestore
+      DocumentSnapshot snapshot =
+          await _firestore.collection('users').doc(currentUser.uid).get();
+
+      // converts the Firestore document into a Users object
+      return Users.fromSnap(snapshot);
+    } catch (e) {
+      throw Exception('Failed to fetch user details: $e');
+    }
   }
 }

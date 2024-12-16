@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/widgets/text_field.dart';
 import 'package:holbegram/screens/login_screen.dart';
+import 'package:holbegram/screens/auth/upload_image_screen.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -114,8 +116,11 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       onPressed: () {
+                        String email = emailController.text;
+                        String username = usernameController.text;
                         String password = passwordController.text;
                         String passwordConfirm = passwordConfirmController.text;
+
                         if (password == passwordConfirm) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -126,8 +131,11 @@ class _SignUpState extends State<SignUp> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const LoginScreen(),
+                              builder: (context) => AddPicture(
+                                email: email,
+                                username: username,
+                                password: password,
+                              ),
                             ),
                           );
                         } else {
